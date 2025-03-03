@@ -1,0 +1,4 @@
+/mnt/d/cpp-ai-agent/build/CMakeFiles/cpp_ai_agent.dir
+/mnt/d/cpp-ai-agent/build/CMakeFiles/ai_example.dir
+/mnt/d/cpp-ai-agent/build/CMakeFiles/edit_cache.dir
+/mnt/d/cpp-ai-agent/build/CMakeFiles/rebuild_cache.dir

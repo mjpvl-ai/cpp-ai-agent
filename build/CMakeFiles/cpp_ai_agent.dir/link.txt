@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcpp_ai_agent.a CMakeFiles/cpp_ai_agent.dir/src/AIClient.cpp.o CMakeFiles/cpp_ai_agent.dir/src/VectorDB.cpp.o CMakeFiles/cpp_ai_agent.dir/src/Agent.cpp.o
+/usr/bin/ranlib libcpp_ai_agent.a
