@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/ai_example.dir/examples/main.cpp.o -o ai_example  -Wl,-rpath,/usr/local/lib libcpp_ai_agent.a /usr/local/lib/libfaiss.so 

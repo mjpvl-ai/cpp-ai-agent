@@ -1,16 +1,19 @@
 cmake_minimum_required(VERSION 3.10)
-project(cpp-ai-agent)
+project(cpp_ai_agent)
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(FAISS REQUIRED)
+# Add llama.cpp
+include_directories(${PROJECT_SOURCE_DIR}/external/llama.cpp/include)
+include_directories(${PROJECT_SOURCE_DIR}/external/llama.cpp)
+add_subdirectory(external/llama.cpp)
 
-include_directories(include)
+# Add your source files
+add_library(cpp_ai_agent STATIC
+    src/AIClient.cpp
+    src/VectorDB.cpp
+    src/Agent.cpp
+)
 
-add_library(cpp_ai_agent STATIC src/AIClient.cpp src/VectorDB.cpp src/Agent.cpp)
-
-target_link_libraries(cpp_ai_agent PRIVATE faiss)
-
-add_executable(ai_example examples/main.cpp)
-target_link_libraries(ai_example PRIVATE cpp_ai_agent)
-
+# Link with llama.cpp
+target_link_libraries(cpp_ai_agent PRIVATE llama)

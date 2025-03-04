@@ -85,6 +85,51 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/cpp-ai-agent/build/CMakeFiles /mnt/d/cpp-ai-agent/build//CMakeFiles/progress.marks
@@ -130,41 +175,56 @@ cpp_ai_agent/fast:
 .PHONY : cpp_ai_agent/fast
 
 #=============================================================================
-# Target rules for targets named ai_example
+# Target rules for targets named ggml-base
 
 # Build rule for target.
-ai_example: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ai_example
-.PHONY : ai_example
+ggml-base: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ggml-base
+.PHONY : ggml-base
 
 # fast build rule for target.
-ai_example/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ai_example.dir/build.make CMakeFiles/ai_example.dir/build
-.PHONY : ai_example/fast
+ggml-base/fast:
+	$(MAKE) $(MAKESILENT) -f external/llama.cpp/ggml/src/CMakeFiles/ggml-base.dir/build.make external/llama.cpp/ggml/src/CMakeFiles/ggml-base.dir/build
+.PHONY : ggml-base/fast
 
-examples/main.o: examples/main.cpp.o
-.PHONY : examples/main.o
+#=============================================================================
+# Target rules for targets named ggml
 
-# target to build an object file
-examples/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ai_example.dir/build.make CMakeFiles/ai_example.dir/examples/main.cpp.o
-.PHONY : examples/main.cpp.o
+# Build rule for target.
+ggml: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ggml
+.PHONY : ggml
 
-examples/main.i: examples/main.cpp.i
-.PHONY : examples/main.i
+# fast build rule for target.
+ggml/fast:
+	$(MAKE) $(MAKESILENT) -f external/llama.cpp/ggml/src/CMakeFiles/ggml.dir/build.make external/llama.cpp/ggml/src/CMakeFiles/ggml.dir/build
+.PHONY : ggml/fast
 
-# target to preprocess a source file
-examples/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ai_example.dir/build.make CMakeFiles/ai_example.dir/examples/main.cpp.i
-.PHONY : examples/main.cpp.i
+#=============================================================================
+# Target rules for targets named ggml-cpu
 
-examples/main.s: examples/main.cpp.s
-.PHONY : examples/main.s
+# Build rule for target.
+ggml-cpu: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ggml-cpu
+.PHONY : ggml-cpu
 
-# target to generate assembly for a file
-examples/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ai_example.dir/build.make CMakeFiles/ai_example.dir/examples/main.cpp.s
-.PHONY : examples/main.cpp.s
+# fast build rule for target.
+ggml-cpu/fast:
+	$(MAKE) $(MAKESILENT) -f external/llama.cpp/ggml/src/CMakeFiles/ggml-cpu.dir/build.make external/llama.cpp/ggml/src/CMakeFiles/ggml-cpu.dir/build
+.PHONY : ggml-cpu/fast
+
+#=============================================================================
+# Target rules for targets named llama
+
+# Build rule for target.
+llama: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 llama
+.PHONY : llama
+
+# fast build rule for target.
+llama/fast:
+	$(MAKE) $(MAKESILENT) -f external/llama.cpp/src/CMakeFiles/llama.dir/build.make external/llama.cpp/src/CMakeFiles/llama.dir/build
+.PHONY : llama/fast
 
 src/AIClient.o: src/AIClient.cpp.o
 .PHONY : src/AIClient.o
@@ -245,12 +305,16 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... ai_example"
 	@echo "... cpp_ai_agent"
-	@echo "... examples/main.o"
-	@echo "... examples/main.i"
-	@echo "... examples/main.s"
+	@echo "... ggml"
+	@echo "... ggml-base"
+	@echo "... ggml-cpu"
+	@echo "... llama"
 	@echo "... src/AIClient.o"
 	@echo "... src/AIClient.i"
 	@echo "... src/AIClient.s"
